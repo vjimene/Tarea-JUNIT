@@ -9,20 +9,23 @@ import com.tarea.demo.model.Inventory;
 import com.tarea.demo.model.Recipe;
 
 public class CoffeMachineEmulator {
+	final static Logger logger = Logger.getLogger(CoffeMachineEmulator.class);
 	public static void main(String[] args) {
-		Logger log = Logger.getLogger("Log de tarea");
         System.out.println("Bienvenido a la simulacion de su maquina de cafe");
         System.out.println("Ingrese 3 recetas de cafe");
         Scanner scanner = new Scanner(System.in);
         //Recetas de cafe
         System.out.println("Primera receta");
         Recipe recOne = writeRecipe();
+        logger.info("El usuario incluyó la primera receta");
         
         System.out.println("Segunda receta"); 
         Recipe recTwo = writeRecipe();
+        logger.info("El usuario incluyó la segunda receta");
         
         System.out.println("Tercera receta"); 
         Recipe recThr = writeRecipe();
+        logger.info("El usuario incluyó la tercera receta");
     
         Inventory inv = new Inventory(0, 0, 0, 0);
         CoffeMachine emu = new CoffeMachine(inv, recOne, recTwo, recThr);
@@ -37,14 +40,15 @@ public class CoffeMachineEmulator {
         	
         	switch(eleccion) {
         	case 1:
-        		log.info("El usuario seleccionó Agregar inventario");
+        		logger.info("El usuario seleccionó Agregar inventario");
         		add(emu);
         		break;
         	case 2:
-        		log.info("El usuario seleccionó Verificar inventario");
+        		logger.info("El usuario seleccionó Verificar inventario");
         		System.out.println(emu.getInventory().toString());
         		break;
         	case 3:
+        		logger.info("El usuario seleccionó realizar una compra");
         		System.out.println("Seleccione una receta de café");
         		System.out.println("[1] " + emu.getRecipeOne().getName() + " precio: " + String.valueOf(emu.getRecipeOne().getPrice()));
         		System.out.println("[2] " + emu.getRecipeTwo().getName() + " precio: " + String.valueOf(emu.getRecipeTwo().getPrice()));
@@ -55,7 +59,7 @@ public class CoffeMachineEmulator {
             	
             	switch(coffeRecipe) {
             	case 1:
-            		log.info("El usuario seleccionó "+ emu.getRecipeOne().getName());
+            		logger.info("El usuario seleccionó "+ emu.getRecipeOne().getName());
             		if(emu.sellDrink(price,emu.getRecipeOne(), emu.getInventory())) {
             			System.out.println("Exito en la compra, el vuelto es: "+ String.valueOf(CoffeMachine.changeCoins(emu.getRecipeOne().getPrice(), price)));
             		}else {
@@ -63,7 +67,7 @@ public class CoffeMachineEmulator {
             		}
             		break;
             	case 2:
-            		log.info("El usuario seleccionó "+ emu.getRecipeTwo().getName());
+            		logger.info("El usuario seleccionó "+ emu.getRecipeTwo().getName());
             		if(emu.sellDrink(price,emu.getRecipeTwo(), emu.getInventory())) {
             			System.out.println("Exito en la compra, el vuelto es: "+ String.valueOf(CoffeMachine.changeCoins(emu.getRecipeTwo().getPrice(), price)));
             		}else {
@@ -71,7 +75,7 @@ public class CoffeMachineEmulator {
             		}
             		break;
             	case 3:
-            		log.info("El usuario seleccionó "+ emu.getRecipeThree().getName());
+            		logger.info("El usuario seleccionó "+ emu.getRecipeThree().getName());
             		if(emu.sellDrink(price,emu.getRecipeThree(), emu.getInventory())) {
             			System.out.println("Exito en la compra, el vuelto es: "+ String.valueOf(CoffeMachine.changeCoins(emu.getRecipeThree().getPrice(), price)));
             		}else {
@@ -80,20 +84,20 @@ public class CoffeMachineEmulator {
             		break;
             	default:
             		System.out.println("Seleccion invalida");
+            		logger.info("El usuario seleccionó un valor invalido");
             		break;
             	}
             	
         		break;
         	default:
         		System.out.println("Seleccion invalida");
+        		logger.info("El usuario seleccionó un valor invalido");
         		break;
         	}
-        	scanner.close();
         }
     } 
     //Recibe las recetas antes de iniciar la simulación
     public static Recipe writeRecipe(){
-    	Logger log = Logger.getLogger("Log de tarea");
     	Scanner scanner = new Scanner(System.in);
         System.out.print("nombre de receta: ");
         String name = scanner.nextLine();
@@ -108,25 +112,24 @@ public class CoffeMachineEmulator {
         System.out.print("unidades de chocolate: ");
         int choco = scanner.nextInt();
         while (choco > 10) {
-        	log.info("El usuario sobrepasó la cantidad máxima");
+        	logger.info("El usuario sobrepasó la cantidad máxima");
             System.out.println("Sobrepasa el valor máximo, por favor ingrese una cantidad 10 o menor");
             choco = scanner.nextInt();  
         }
         System.out.print("unidades de leche: ");
         int milk = scanner.nextInt();
         while (milk > 80) {
-        	log.info("El usuario sobrepasó la cantidad máxima");
+        	logger.info("El usuario sobrepasó la cantidad máxima");
             System.out.println("Sobrepasa el valor máximo, por favor ingrese una cantidad 80 o menor");
             milk = scanner.nextInt();  
         }
         System.out.print("unidades de azucar: ");
         int sugar = scanner.nextInt();
         while (sugar > 40) {
-        	log.info("El usuario sobrepasó la cantidad máxima");
+        	logger.info("El usuario sobrepasó la cantidad máxima");
             System.out.println("Sobrepasa el valor máximo, por favor ingrese una cantidad 40 o menor");
             sugar = scanner.nextInt();  
         }
-        scanner.close();
         return new Recipe(name, price, coffe, choco, milk, sugar); 
     }
     public static void add(CoffeMachine emu) {
@@ -140,6 +143,5 @@ public class CoffeMachineEmulator {
     	System.out.print("unidades de azucar: ");
     	int sugar = scanner.nextInt();
     	emu.getInventory().addInventory(coffe, milk, choco, sugar);
-    	scanner.close();
     }
 }
