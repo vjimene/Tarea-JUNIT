@@ -105,29 +105,30 @@ public class CoffeMachineEmulator {
         int price = scanner.nextInt();
         System.out.print("unidades de cafe: ");
         int coffe = scanner.nextInt();
-        while (coffe > 10) {
-            System.out.println("Sobrepasa el valor máximo, por favor ingrese una cantidad 10 o menor");
+        while (coffe > 10 || coffe < 0) {
+        	logger.info("El usuario sobrepasó la cantidad máxima o mínima");
+            System.out.println("Sobrepasa el valor, por favor ingrese una cantidad  en el rango [0,10]");
             coffe = scanner.nextInt();  
         }
         System.out.print("unidades de chocolate: ");
         int choco = scanner.nextInt();
-        while (choco > 10) {
-        	logger.info("El usuario sobrepasó la cantidad máxima");
-            System.out.println("Sobrepasa el valor máximo, por favor ingrese una cantidad 10 o menor");
+        while (choco > 10 || choco < 0) {
+        	logger.info("El usuario sobrepasó la cantidad máxima o mínima");
+            System.out.println("Sobrepasa el valor, por favor ingrese una cantidad en el rango [0,10]");
             choco = scanner.nextInt();  
         }
         System.out.print("unidades de leche: ");
         int milk = scanner.nextInt();
-        while (milk > 80) {
-        	logger.info("El usuario sobrepasó la cantidad máxima");
-            System.out.println("Sobrepasa el valor máximo, por favor ingrese una cantidad 80 o menor");
+        while (milk > 80 || milk < 0) {
+        	logger.info("El usuario sobrepasó la cantidad máxima o mínima");
+            System.out.println("Sobrepasa el valor, por favor ingrese una cantidad  en el rango [0, 80]");
             milk = scanner.nextInt();  
         }
         System.out.print("unidades de azucar: ");
         int sugar = scanner.nextInt();
-        while (sugar > 40) {
-        	logger.info("El usuario sobrepasó la cantidad máxima");
-            System.out.println("Sobrepasa el valor máximo, por favor ingrese una cantidad 40 o menor");
+        while (sugar > 40 || sugar < 0) {
+        	logger.info("El usuario sobrepasó la cantidad máxima o mínima");
+            System.out.println("Sobrepasa el valor, por favor ingrese una cantidad  en el rango [0, 40]");
             sugar = scanner.nextInt();  
         }
         return new Recipe(name, price, coffe, choco, milk, sugar); 
