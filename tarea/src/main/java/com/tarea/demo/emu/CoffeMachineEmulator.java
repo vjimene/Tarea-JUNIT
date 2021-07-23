@@ -134,7 +134,7 @@ public class CoffeMachineEmulator {
     }
     public static void add(CoffeMachine emu) {
     	Scanner scanner = new Scanner(System.in);
-    	System.out.print("Unidades de cafe");
+    	System.out.print("Unidades de cafe: ");
     	int coffe = scanner.nextInt();
     	System.out.print("unidades de chocolate: ");
     	int choco = scanner.nextInt();
